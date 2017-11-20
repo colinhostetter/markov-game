@@ -1,0 +1,27 @@
+.guess-result {
+  text-align: center;
+  margin: 1.5em auto 0 auto;
+}
+.guess-result-icon-container {
+  display: inline-block;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  margin: 0 auto 0.5em auto;
+  box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.7)
+}
+.guess-result-icon-container.correct {
+  background: green;
+}
+.guess-result-icon-container.incorrect {
+  background: red;
+}
+.guess-result-text {
+  font-size: 1.3em;
+}

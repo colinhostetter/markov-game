@@ -1,0 +1,106 @@
+.sentence {
+  border: 1px solid #bbb;
+  padding-bottom: 5px;
+  position: relative;
+  min-height: 85px;
+}
+.sentence:not(:last-of-type) {
+  border-bottom: none;
+}
+.sentence-text {
+  padding: 5px 40px 5px 10px;
+}
+.option-buttons-container {
+  padding: 0px 10px 5px 10px;
+}
+.author-indicator {
+  color: white;
+  display: inline-block;
+  padding: 0px 10px;
+  border-bottom-right-radius: 8px;
+  border-style: solid;
+  border-width: 0px 1px 1px 0px;
+  box-shadow: 1px 1px 1px 0px rgba(0,0,0,0.3);
+}
+.author-indicator.computer {
+  background: #0505b1;
+  border-color: #16103e;
+}
+.author-indicator.player {
+  background: #0d790d;
+  border-color: #074c07;
+}
+.option-buttons-container {
+  display: flex;
+  margin-top: 5px;
+}
+.option-button {
+  flex: 1;
+  margin: 0px 5px;
+  border-radius: 5px;
+  background: #0e4108;
+  color: white;
+  border: 1px solid #174e2d;
+  padding: 3px 0px;
+  text-shadow: 1px 1px rgba(0,0,0,0.4);
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.4);
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.25s ease-out, transform 0.15s ease-out;
+}
+.option-button:hover {
+  background: #39688c
+}
+.option-button:active {
+  border: none;
+  transform: translateY(1px);
+}
+.option-button:first-of-type {
+  margin-left: 0;
+}
+.option-button:last-of-type {
+  margin-right: 0;
+}
+@keyframes guess-indicator-slidein {
+  from {
+    transform: translate(50px, -50%);
+  }
+  to {
+    transform: translate(5px, -50%);
+  }
+}
+.guess-indicator-container {
+  position: absolute;
+  height: 60px;
+  right: 0;
+  transform: translate(5px, -50%);
+  top: 50%;
+  z-index: 2;
+  display: flex;
+  animation-duration: 0.5s;
+  animation-name: guess-indicator-slidein;
+}
+.guess-indicator-box {
+  background: purple;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 25px;
+  border-right: 1px solid #4e144e;
+}
+.guess-indicator-triangle {
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 0;
+  height: 0;
+  border-top: 29px solid transparent;
+  border-right: 15px solid purple;
+  border-bottom: 29px solid transparent;
+}
+.guess-indicator-caption {
+  transform: rotate(90deg);
+}

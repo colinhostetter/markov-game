@@ -1,0 +1,10 @@
+.headline-instructions-container {
+  text-align: center;
+  padding-bottom: 1em;
+}
+.headline-instructions-container h2 {
+  margin: 0.5em;
+}
+.headline-instructions-container aside {
+  margin: 0em;
+}

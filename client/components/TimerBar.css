@@ -1,0 +1,21 @@
+.timer-bar-container {
+  height: 15px;
+  width: 100%;
+  margin-bottom: -5px;
+  position: relative;
+}
+.timer-bar,
+.timer-bar-cover {
+  height: 100%;
+}
+.word-timer-bar {
+  background: linear-gradient(to right, greenyellow, green);
+}
+.guess-timer-bar {
+  background: linear-gradient(to right, violet, purple);
+}
+.timer-bar-cover {
+  background: white;
+  position: absolute;
+  right: 0;
+}

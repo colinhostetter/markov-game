@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Round 1 guessing 1`] = `
+<div
+  className="headline-instructions-container padded-edges"
+>
+  <h2>
+    You're guessing first!
+  </h2>
+  <aside>
+    Guess which sentence is being written by your partner
+  </aside>
+</div>
+`;
+
+exports[`Round 1 writing 1`] = `
+<div
+  className="headline-instructions-container padded-edges"
+>
+  <h2>
+    You're writing first!
+  </h2>
+  <aside>
+    Create a sentence your partner will recognize as human-written
+  </aside>
+</div>
+`;
+
+exports[`Round 2+ guessing 1`] = `
+<div
+  className="headline-instructions-container padded-edges"
+>
+  <h2>
+    Your turn to guess!
+  </h2>
+  <aside>
+    Guess which sentence is being written by your partner
+  </aside>
+</div>
+`;
+
+exports[`Round 2+ writing 1`] = `
+<div
+  className="headline-instructions-container padded-edges"
+>
+  <h2>
+    Your turn to write!
+  </h2>
+  <aside>
+    Create a sentence your partner will recognize as human-written
+  </aside>
+</div>
+`;
