@@ -18,6 +18,9 @@ GAME_STATUS_GUESS_TIME = 'guess_time'
 GAME_STATUS_REVEAL = 'reveal'
 GAME_STATUS_POSTGAME = 'postgame'
 
+MESSAGE_JOINED_QUEUE = 'join_queue'
+MESSAGE_GAME_READY = 'game_ready'
+
 FALLBACK_WORDS = [
     'if', 'and', 'or', 'but', 'into', 'so', 'with', 'for'
 ]

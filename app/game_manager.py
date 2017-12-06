@@ -1,8 +1,11 @@
+import uuid
+
 from app import constants
 from app.game import Game
 
 
-_game_registry = {}
+_game_registry = dict()
+_queue = set()
 socketio = None
 
 
@@ -55,6 +58,24 @@ def guess_sentence(game_id, player_id, sentence_index):
     )
     if valid:
         game.guess_sentence(sentence_index=sentence_index)
+
+def join_queue(player_id):
+    _queue.add(player_id)
+    if len(_queue) > 1:
+        make_games()
+    else:
+        socketio.emit(constants.MESSAGE_JOINED_QUEUE, room=player_id)
+
+def make_games():
+    while len(_queue) > 1:
+        players = [_queue.pop(), _queue.pop()]
+        game = create_game(make_game_id())
+        message = {'game_id': game.socket_room}
+        for player in players:
+            socketio.emit(constants.MESSAGE_GAME_READY, message, room=player)
+
+def make_game_id():
+    return str(uuid.uuid4())
 
 def _serialize_game_state_for_guesser(game):
     return {

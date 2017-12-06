@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var autoprefixer = require('autoprefixer');
 
-var BUILD_DIR = path.resolve(__dirname, 'dist');
+var BUILD_DIR = path.resolve(__dirname, 'static');
 var APP_DIR = path.resolve(__dirname, 'client');
 
 var config = {

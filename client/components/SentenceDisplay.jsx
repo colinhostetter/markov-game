@@ -11,15 +11,18 @@ class SentenceDisplay extends React.Component {
   }
   onWordButtonClicked(index) {
     this.buttons[index].blur();
-    console.log(this.buttons[index])
     this.props.onWordChosen(index);
   }
   render() {
     const text = this.props.words.join(" ");
     const author = this.props.isPlayer ? (this.props.writing ? "You" : "Your Partner") : "Computer";
     const wordChoiceTime = this.props.wordNum === 0 ? constants.FIRST_WORD_CHOICE_TIME_SECONDS : constants.WORD_CHOICE_TIME_SECONDS
+    const playerGuessingNow = this.props.status === constants.GAME_STATUS_GUESS_TIME && this.props.guessing;
     return (
-      <div className="sentence" onClick={() => this.props.guessing && this.props.onGuessMade()}>
+      <div 
+        className={classnames("sentence", playerGuessingNow && "sentence-guessing-time")}
+        onClick={() => this.props.guessing && this.props.onGuessMade()}
+      >
         {this.props.isGuessed &&
           <div className="guess-indicator-container">
             <div className="guess-indicator-triangle" />

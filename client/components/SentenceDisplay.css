@@ -3,6 +3,12 @@
   padding-bottom: 5px;
   position: relative;
   min-height: 85px;
+  transition: box-shadow ease-out 0.2s;
+  background-color: #fff;
+}
+.sentence-guessing-time:hover {
+  box-shadow: inset 0px 0px 30px 3px rgba(0,0,0,0.3);
+  cursor: pointer;
 }
 .sentence:not(:last-of-type) {
   border-bottom: none;

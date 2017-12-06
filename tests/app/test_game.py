@@ -59,17 +59,6 @@ class TestGame(BaseTestCase):
             self.assertIn(s.words[-1], options)
         self.assertEqual(self.on_options_changed.call_count, 2)
 
-    def test_random_selection(self):
-        _sleep = eventlet.sleep
-        with patch('eventlet.sleep', side_effect=lambda _: _sleep(0.0001)):
-            self.game.start_round(0)
-            _sleep(0.0002)
-
-        self.assertEqual(
-            len(self.game.player_sentence.words),
-            len(self.game.current_prompt.split(' ')) + 1
-        )
-
     def test_guess_right_sentence(self):
         _sleep = eventlet.sleep
         self.game.start_round(0)

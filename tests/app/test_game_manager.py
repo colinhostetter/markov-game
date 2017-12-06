@@ -144,3 +144,19 @@ class TestGameManager(BaseTestCase):
         game.status = constants.GAME_STATUS_GUESS_TIME
 
         self.assertEqual(len(game.guesses_correct), 0)
+
+    def test_join_queue(self):
+        players = ['a', 'b']
+
+        game_manager.join_queue(player_id=players[0])
+
+        first_emission = self.mock_socketio.emit.call_args_list[0]
+        self.assertEqual(first_emission[0], (constants.MESSAGE_JOINED_QUEUE,))
+        self.assertEqual(first_emission[1], {'room': players[0]})
+
+        game_manager.join_queue(player_id=players[1])
+
+        emissions = self.mock_socketio.emit.call_args_list[1:3]
+        self.assertEqual(emissions[0][1], {'room': players[0]})
+        self.assertEqual(emissions[1][1], {'room': players[1]})
+        self.assertEqual(emissions[0][0][1]['game_id'], emissions[1][0][1]['game_id'])

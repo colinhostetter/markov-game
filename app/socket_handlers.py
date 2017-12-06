@@ -38,3 +38,7 @@ def init_socket_routes(socketio):
             sentence_index=data['sentence_index'],
             player_id=session['user_id']
         )
+
+    @socketio.on('join_queue')
+    def join_queue():
+        game_manager.join_queue(player_id=session['user_id'])
