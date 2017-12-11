@@ -1,0 +1,24 @@
+.post-game-display {
+  margin: 5em 2em;
+  max-width: 800px;
+}
+.post-game-display p {
+  font-size: 1.25em;
+}
+.post-game-display a {
+  text-decoration: none;
+}
+.post-game-display button {
+  display: block;
+  margin: auto;
+  font-size: 1.1em;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: #f5f5f5;
+  padding: 5px 10px;
+  transition: background 0.15s ease-out;
+  cursor: pointer;
+}
+.post-game-display button:hover {
+  background: #eee;
+}

@@ -14,7 +14,6 @@ class SentenceDisplay extends React.Component {
     this.props.onWordChosen(index);
   }
   render() {
-    const text = this.props.words.join(" ");
     const author = this.props.isPlayer ? (this.props.writing ? "You" : "Your Partner") : "Computer";
     const wordChoiceTime = this.props.wordNum === 0 ? constants.FIRST_WORD_CHOICE_TIME_SECONDS : constants.WORD_CHOICE_TIME_SECONDS
     const playerGuessingNow = this.props.status === constants.GAME_STATUS_GUESS_TIME && this.props.guessing;
@@ -36,7 +35,9 @@ class SentenceDisplay extends React.Component {
             {author}
           </div>
         }
-        <div className="sentence-text">{text}</div>
+        <div className="sentence-text">
+          {this.props.words.map((word, index) => <span className="word" key={index}>{word} </span>)}
+        </div>
         {this.props.writing && this.props.isPlayer && this.props.status === constants.GAME_STATUS_WRITING &&
           <div>
             <div className="option-buttons-container">

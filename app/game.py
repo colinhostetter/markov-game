@@ -2,6 +2,7 @@ import eventlet
 import random
 from copy import copy
 from markovify.chain import END as MARKOVIFY_END_MARKER
+from time import time
 
 from app import constants
 from app.markov import model
@@ -25,19 +26,25 @@ class Game(object):
     No logic here that directly touches the sockets, that's handled by the handlers
     declared in the constructor
     """
-    def __init__(self, socket_room, on_options_changed, on_sentence_finished, on_guess_made, on_game_ended):
+    def __init__(self, socket_room, on_options_changed, on_sentence_finished, on_guess_made, on_game_ended,
+                 on_player_went_inactive):
         self.guessing_player_index = random.randint(0, 1)
         self.round = 0
         self.word_num = 0
         self.players = []
         self.guesses_correct = []
         self.status = constants.GAME_STATUS_PREGAME
+        self.active = True
+        self.last_heartbeats = []
 
         self.socket_room = socket_room
         self.on_options_changed = on_options_changed
         self.on_sentence_finished = on_sentence_finished
         self.on_guess_made = on_guess_made
         self.on_game_ended = on_game_ended
+        self.on_player_went_inactive = on_player_went_inactive
+
+        eventlet.spawn_after(1, self._enforce_heartbeats_blocking)
 
     @property
     def player_sentence(self):
@@ -58,6 +65,7 @@ class Game(object):
 
     def join_game(self, player_id):
         self.players.append(player_id)
+        self.last_heartbeats.append(time())
 
     def start_game(self):
         self.start_round(0)
@@ -86,7 +94,13 @@ class Game(object):
         eventlet.sleep(sleep_time)
         # See if the player made a choice while we were asleep. If they did,
         # this coroutine's work is done. If not, we should make a random choice.
-        if self.round == current_round and self.word_num == word_num and self.status == constants.GAME_STATUS_WRITING:
+        state_hasnt_changed = (
+            self.active and
+            self.round == current_round and
+            self.word_num == word_num and
+            self.status == constants.GAME_STATUS_WRITING
+        )
+        if state_hasnt_changed:
             word_index = random.randint(0, constants.OPTIONS_PRESENTED - 1)
             self.choose_word(word_index=word_index)
 
@@ -94,10 +108,9 @@ class Game(object):
         current_round = self.round
         eventlet.sleep(constants.GUESS_TIME_SECONDS)
         # See if the guessing player made a guess while we were asleep. If they
-        # did, this coroutine's work is done. If not, we should guess randomly.
-        if self.round == current_round and self.status == constants.GAME_STATUS_GUESS_TIME:
-            sentence_index = random.randint(0, constants.NUMBER_COMPUTER_SENTENCES)
-            self.guess_sentence(sentence_index=sentence_index)
+        # did, this coroutine's work is done. If not, we should make a null guess.
+        if self.active and self.round == current_round and self.status == constants.GAME_STATUS_GUESS_TIME:
+            self.guess_sentence(sentence_index=None)
 
     def initialize_sentences(self):
         self.current_prompt = random.choice(constants.PROMPTS)
@@ -166,18 +179,46 @@ class Game(object):
             sentence.words.append(word)
 
     def guess_sentence(self, sentence_index):
-        correct = self.sentences[sentence_index].is_player
-        self.guesses_correct.append(correct)
+        if sentence_index is None:
+            correct = None
+            self.guesses_correct.append(None)
+        else:
+            correct = self.sentences[sentence_index].is_player
+            self.guesses_correct.append(correct)
         self.status = constants.GAME_STATUS_REVEAL
         self.on_guess_made(game=self, sentence_index=sentence_index, correct=correct)
         eventlet.spawn(self._wait_out_reveal_time_blocking)
 
     def _wait_out_reveal_time_blocking(self):
         eventlet.sleep(constants.REVEAL_TIME_SECONDS)
-        if self.round < constants.ROUNDS_PER_GAME - 1:
+        if self.active and self.round < constants.ROUNDS_PER_GAME - 1:
             self.start_round(self.round + 1)
-        else:
+        elif self.active:
             self.end_game()
 
     def end_game(self):
         self.on_game_ended(self)
+
+    def heartbeat(self, player_id):
+        index = self.players.index(player_id)
+        self.last_heartbeats[index] = time()
+
+    def _enforce_heartbeats_blocking(self):
+        while self.active and self.status != constants.GAME_STATUS_POSTGAME:
+            now = time()
+            inactive_players = [
+                player for index, player in enumerate(self.players)
+                if now - self.last_heartbeats[index] > constants.INACTIVITY_TIMEOUT_SECONDS
+            ]
+
+            if len(self.players) > 1 and self.players[0] in inactive_players:
+                self.on_player_went_inactive(game=self, player_id=self.players[0], other_player_id=self.players[1])
+            if len(self.players) > 1 and self.players[1] in inactive_players:
+                self.on_player_went_inactive(game=self, player_id=self.players[1], other_player_id=self.players[0])
+
+            if len(inactive_players) == len(self.players):
+                self.active = False
+                self.on_game_ended(self, from_inactivity=True)
+                return
+
+            eventlet.sleep(1)

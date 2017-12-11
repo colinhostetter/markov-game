@@ -2,3 +2,6 @@
   margin: auto;
   max-width: 800px;
 }
+.sentences-container {
+  overflow: hidden;
+}

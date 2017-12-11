@@ -2,13 +2,26 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+  <link href="/assets/index.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans|PT+Mono" rel="stylesheet">
   <title>Markov's Revenge</title>  
 </head>
 <body>
-  <!-- Include these scripts so they're cached when we need them. -->
-  <script type="text/javascript" src="/assets/bundle.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <div class="home-container">
+    <h1>Markov's Revenge</h1>
+    <p><strong>Can you guess which sentence is being written by a human, and which is being written by a computer?</strong></p>
+    <div class="play-buttons-container">
+      <a href="/game?mode=queue"><button id="stranger-button" class="stranger-button">Play with a stranger</button></a>
+      <a href="/game?mode=wait"><button id="friend-button" class="friend-button">Play with a friend</button></a>
+    </div>
+    <p>It works like this:</p>
+    <ul class="instructions">
+      <li>You'll play with a partner. Each round, one of you is the writer, and the other is the guesser.</li>
+      <li>The writer will be given the beginning of a sentence and have to complete it by choosing words one at a time. Meanwhile, the computer will randomly generate two other sentences.</li>
+      <li>Once the sentences are written, the guesser will have to guess which of the three sentences was written by the other player.</li>
+      <li>Then, you'll swap roles!</li>
+    </ul>
+  </div>
 </body>
 </head>
 </html>

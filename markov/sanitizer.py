@@ -14,8 +14,8 @@ remove_characters = [re.compile(regex) for regex in [
 ]]
 disallow_alone = ("'", "’", "-", "amp")
 
-with open('raw_tweets.txt', 'r', encoding='utf-8') as f, \
-     open('sanitized_tweets.txt', 'w', encoding='utf-8') as dest:
+with open('markov/raw_tweets.txt', 'r', encoding='utf-8') as f, \
+     open('markov/sanitized_tweets.txt', 'w', encoding='utf-8') as dest:
     for tweet in f:
         tokens = tweet.split(' ')
 

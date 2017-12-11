@@ -5,11 +5,15 @@ import ScoreDisplay from "./ScoreDisplay";
 import WordsLeftCounter from "./WordsLeftCounter";
 import GuessTimer from "./GuessTimer";
 import GuessResult from "./GuessResult";
+import DisconnectedAlert from "./DisconnectedAlert";
 import constants from "../constants";
 import "./GameDisplay.css";
 
 const GameDisplay = ({
+  connected,
+  partnerConnected,
   guessesCorrect,
+  guessedCorrect,
   guessing,
   writing,
   sentences,
@@ -21,6 +25,7 @@ const GameDisplay = ({
   status
 }) => (
   <div className="game-container">
+    <DisconnectedAlert connected={connected} partnerConnected={partnerConnected} />
     <ScoreDisplay guessesCorrect={guessesCorrect} />
     <HeadlineInstructions guessing={guessing} writing={writing} round={round} />
     <div className="sentences-container padded-edges">
@@ -42,7 +47,7 @@ const GameDisplay = ({
     <div className="bottom-contexual-panel padded-edges">
       {status === constants.GAME_STATUS_WRITING && <WordsLeftCounter wordNum={wordNum} />}
       {status === constants.GAME_STATUS_GUESS_TIME && <GuessTimer guessing={guessing} />}
-      {status === constants.GAME_STATUS_REVEAL && <GuessResult guessing={guessing} correct={guessesCorrect[round]} />}
+      {status === constants.GAME_STATUS_REVEAL && <GuessResult guessing={guessing} correct={guessedCorrect} />}
     </div>
   </div>
 );

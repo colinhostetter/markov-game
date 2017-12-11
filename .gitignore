@@ -4,3 +4,7 @@ node_modules
 **/__pycache__/**
 static/**/*.js
 *.pyc
+
+markov/markov.json
+markov/markov_mini.json
+markov/sanitized_tweets.txt

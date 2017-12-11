@@ -110,3 +110,17 @@
 .guess-indicator-caption {
   transform: rotate(90deg);
 }
+.sentence-text .word {
+  animation: word-appear 1s;
+}
+@keyframes word-appear {
+  0% {
+    color: white;
+  }
+  50% {
+    color: purple;
+  }
+  100% {
+    color: black;
+  }
+}

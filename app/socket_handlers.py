@@ -13,8 +13,15 @@ def init_socket_routes(socketio):
         join_room(user_id)
 
     @socketio.on('heartbeat')
-    def heartbeat():
-        emit('thump')
+    def heartbeat(data={}):
+        if data.get('game_id'):
+            game_manager.game_heartbeat(
+                game_id=data['game_id'],
+                player_id=session['user_id']
+            )
+        elif data.get('queue'):
+            game_manager.queue_heartbeat(player_id=session['user_id'])
+        emit('heartbeat')
 
     @socketio.on('join_game')
     def join_game(data):

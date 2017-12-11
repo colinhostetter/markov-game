@@ -18,4 +18,5 @@
   background: white;
   position: absolute;
   right: 0;
+  will-change: width;
 }

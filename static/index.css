@@ -1,0 +1,56 @@
+body {
+  font-family: "Noto Sans", sans-serif;
+  margin: 0;
+  line-height: 1.5;
+}
+h1 {
+  font-family: "PT Mono", monospace;
+  font-size: 1.6em;
+  margin: 0em auto 1em auto;
+  text-decoration: underline;
+}
+.home-container {
+  margin: 10px auto;
+  max-width: 700px;
+  padding: 0px 10px;
+}
+.instructions {
+  padding-left: 15px;
+}
+.instructions li {
+  margin: 1.3em;
+}
+.play-buttons-container {
+  max-width: 300px;
+  margin: 25px auto;
+}
+.play-buttons-container a {
+  display: block;
+}
+.play-buttons-container button {
+  font-size: 20px;
+  font-family: "PT Mono", monospace;
+  margin: 10px 0px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.1s ease-out, box-shadow 0.15s ease-out;
+  padding: 5px;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: solid;
+  width: 100%;
+}
+.play-buttons-container button:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+.stranger-button {
+  background-color: #9e6f1b;
+  border-color: #77551a;
+  box-shadow: 0px 2px 1px 00px #3b2c19;
+}
+.friend-button {
+  background-color: #1a7722;
+  border-color: #255d25;
+  box-shadow: 0px 2px 1px 0px #1d2d1d;
+}

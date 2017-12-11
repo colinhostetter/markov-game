@@ -4,11 +4,69 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-  <title>Markov Game</title>
+  <title>Markov's Revenge</title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+    #load {
+      height: 100%;
+      font-size: 3em;
+      font-family: 'Noto Sans', sans-serif;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+    }
+    #load .dot {
+      opacity: 0;
+      transition: opacity linear 0.5s;
+    }
+    #load.show, #load .dot.show {
+      opacity: 1
+    }
+  </style>
 </head>
 <body>
+  <div id="load">
+    <div>Loading<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></div>
+  </div>
   <div id="app"></div>
-  <script type="text/javascript" src="/assets/bundle.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script async type="text/javascript" src="/assets/bundle.js"></script>
+  <script>
+    var numDots = 1;
+    // wait 100ms to show the loader, so we don't weirdly flash it
+    // in case the game loaded from cache.
+    setTimeout(() => {
+      var app = document.getElementById("app");
+      if (app.getAttribute("data-running")) {
+        return;
+      }
+
+      var loaderIntervalId = setInterval(function() {
+        load = document.getElementById("load");
+        if (!load) {
+          clearInterval(loaderIntervalId);
+          return;
+        }
+        load.className = "show";
+
+        dots = document.querySelectorAll("#load .dot");
+        for (var i = 0; i < dots.length; i++) {
+          if (numDots > i) {
+            dots[i].className = "dot show";
+          } else {
+            dots[i].className = "dot";
+          }
+        }
+        if (numDots < 3) {
+          numDots++;
+        } else {
+          numDots = 0;
+        }
+      }, 500);
+    }, 100);
+  </script>
 </body>
 </html>
