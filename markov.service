@@ -1,0 +1,13 @@
+[Unit]
+Description=markov
+After=multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3.6 /home/colin/markov-game/app_init.py
+User=colin
+WorkingDirectory=/home/colin/markov-game
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
