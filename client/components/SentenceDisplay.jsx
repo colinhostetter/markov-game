@@ -4,6 +4,9 @@ import "./SentenceDisplay.css";
 import classnames from "classnames";
 import constants from "../constants";
 
+// used to avoid applying hover behavior on mobile
+const userHasTouchScreen = "ontouchstart" in window || window.navigator.msMaxTouchPoints > 0;
+
 class SentenceDisplay extends React.Component {
   constructor(...args) {
     super(...args);
@@ -17,11 +20,9 @@ class SentenceDisplay extends React.Component {
     const author = this.props.isPlayer ? (this.props.writing ? "You" : "Your Partner") : "Computer";
     const wordChoiceTime = this.props.wordNum === 0 ? constants.FIRST_WORD_CHOICE_TIME_SECONDS : constants.WORD_CHOICE_TIME_SECONDS
     const playerGuessingNow = this.props.status === constants.GAME_STATUS_GUESS_TIME && this.props.guessing;
+    const rootClasses = classnames("sentence", playerGuessingNow && "sentence-guessing-time", !userHasTouchScreen && "desktop");
     return (
-      <div 
-        className={classnames("sentence", playerGuessingNow && "sentence-guessing-time")}
-        onClick={() => this.props.guessing && this.props.onGuessMade()}
-      >
+      <div className={rootClasses} onClick={() => this.props.guessing && this.props.onGuessMade()}>
         {this.props.isGuessed &&
           <div className="guess-indicator-container">
             <div className="guess-indicator-triangle" />
