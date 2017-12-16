@@ -1,10 +1,11 @@
+import os
 import tweepy
 from urllib3.exceptions import ProtocolError
 
-consumer_key = '3LZ2kS9Uo1xE8I2MCVh5HU8ec'
-consumer_secret = 'hzoRCM2aevDtSvjlQdVNKl1qhleZTLodVF17D9oynGp6vXHFLC'
-access_token = '2575915174-T2IxR232RVCGamizBb2IDwxrWQ6PN5Tny5fPY0s'
-access_token_secret = 'no2IBYZzjW6Mo5GqeCyPeZmOArSB9W5iTbVut0FNU9EjE'
+consumer_key = os.getenv('TWITTER_CONSUMER_KEY')
+consumer_secret = os.getenv('TWITTER_CONSUMER_SECRET')
+access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+access_token_secret = os.getenv('TWITTER_ACCESS_TOKEN_SECRET')
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
