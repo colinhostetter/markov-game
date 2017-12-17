@@ -14,12 +14,14 @@ class TestGame(BaseTestCase):
         self.on_sentence_finished = MagicMock()
         self.on_guess_made = MagicMock()
         self.on_game_ended = MagicMock()
+        self.on_player_went_inactive = MagicMock()
         self.game = Game(
             socket_room=self.socket_room,
             on_options_changed=self.on_options_changed,
             on_sentence_finished=self.on_sentence_finished,
             on_guess_made=self.on_guess_made,
-            on_game_ended=self.on_game_ended
+            on_game_ended=self.on_game_ended,
+            on_player_went_inactive=self.on_player_went_inactive
         )
 
     def test_join_game(self):

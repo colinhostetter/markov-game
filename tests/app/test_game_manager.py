@@ -43,10 +43,11 @@ class TestGameManager(BaseTestCase):
         game = game_manager.join_game(game_id=game_id, player_id=player2_id)
         self.assertEqual(game.status, constants.GAME_STATUS_WRITING)
         self.assertCountEqual(game.players, [player_id, player2_id])
-        self.assertEqual(self.emissions[0].name, 'game_state')
+        self.assertEqual(self.emissions[0].name, 'game_starting')
         self.assertEqual(self.emissions[1].name, 'game_state')
+        self.assertEqual(self.emissions[2].name, 'game_state')
         self.assertCountEqual(
-            [i.room for i in self.emissions],
+            [i.room for i in self.emissions[1:3]],
             game.players
         )
 
