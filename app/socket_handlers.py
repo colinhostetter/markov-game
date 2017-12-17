@@ -15,7 +15,6 @@ def init_socket_routes(socketio):
 
     @socketio.on('heartbeat')
     def heartbeat(data={}):
-        raise Exception("hello")
         if data.get('game_id'):
             game_manager.game_heartbeat(
                 game_id=data['game_id'],
