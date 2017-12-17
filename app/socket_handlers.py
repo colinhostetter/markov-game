@@ -1,3 +1,4 @@
+import traceback
 from flask import request, session
 from flask_socketio import emit, join_room
 
@@ -14,6 +15,7 @@ def init_socket_routes(socketio):
 
     @socketio.on('heartbeat')
     def heartbeat(data={}):
+        raise Exception("hello")
         if data.get('game_id'):
             game_manager.game_heartbeat(
                 game_id=data['game_id'],
@@ -49,3 +51,9 @@ def init_socket_routes(socketio):
     @socketio.on('join_queue')
     def join_queue():
         game_manager.join_queue(player_id=session['user_id'])
+
+    @socketio.on_error_default
+    def error_handler(e):
+        print(f'Unhandled error: {e}')
+        traceback.print_exc()
+        print(f'Request context: {request.event}')

@@ -138,7 +138,8 @@ def _on_guess_made(game, sentence_index, correct):
     socketio.emit('guess_made', message, room=game.socket_room)
 
 def _on_game_ended(game, from_inactivity=False):
-    del _game_registry[game.socket_room]
+    if game.socket_room in _game_registry:
+        del _game_registry[game.socket_room]
     if not from_inactivity:
         _send_state(game=game)
         message = {
