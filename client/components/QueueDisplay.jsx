@@ -51,8 +51,7 @@ class QueueDisplay extends React.Component {
           {this.props.gameId && "Waiting for your friend to join..."}
         </p>
         <div className="queue-loader-container">
-          <div className="queue-loader-circle"></div>
-          <div className="queue-loader-circle"></div>
+          <img className="loading-icon" src="/assets/icons/loading.png" />
         </div>
       </div>
     )

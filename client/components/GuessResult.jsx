@@ -14,10 +14,11 @@ const GuessResult = ({ guessing, correct }) => {
       text += " Next time, guess before time runs out!";
     }
   }
+  const iconPath = `/assets/icons/${correct ? "check" : "x"}.png`
   return (
     <div className="guess-result">
-      <div className={classnames("guess-result-icon-container", correct ? "correct" : "incorrect")}>
-        <div className="guess-result-icon">{correct ? "✔" : "❌"}</div>
+      <div className="guess-result-icon-container">
+        <img className="guess-result-icon" src={iconPath} />
       </div>
       <div className="guess-result-text">
         {text}

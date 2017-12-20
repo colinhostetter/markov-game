@@ -36,41 +36,19 @@
   border-style: solid;
   position: absolute;
 }
-.queue-display .queue-loader-circle:first-of-type {
-  border-color: #22b422;
-  animation: load 1.5s infinite 0s;
-}
-.queue-display .queue-loader-circle:last-of-type {
-  border-color: #174517;
-  animation: load 1.5s infinite 0.75s, appear 0.75s;
+.loading-icon {
+  animation: spin 2.5s infinite linear;
 }
 .queue-display .queue-loader-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
-  width: 200px;
-  margin: 25px auto;
-  position: relative;
-  max-width: 100%;
 }
-@keyframes load {
+@keyframes spin {
   0% {
-    opacity: 1;
-    height: 0;
-    width: 0;
+    transform: rotate(0deg);
   }
   100% {
-    opacity: 0;
-    height: 200px;
-    width: 200px;
-  }
-}
-@keyframes appear {
-  0%, 99.9% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
+    transform: rotate(360deg);
   }
 }

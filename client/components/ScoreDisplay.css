@@ -21,15 +21,6 @@
   font-size: 0.85em;
   position: relative;
   user-select: none;
-  /* color hack for ios */
-  color: transparent;
-  text-shadow: 0 0 0 #fff;
-}
-.round-result-circle.correct {
-  background: green;
-}
-.round-result-circle.incorrect {
-  background: red;
 }
 .round-result-circle .coverup {
   background: white;
@@ -41,8 +32,8 @@
   transform: scale(1);
   transition: transform 0.5s ease-in;
 }
-.round-result-circle.correct .coverup,
-.round-result-circle.incorrect .coverup {
+.round-result-circle.filled .coverup,
+.round-result-circle.filled .coverup {
   transform: scale(0);
 }
 .score-horizontal-line {

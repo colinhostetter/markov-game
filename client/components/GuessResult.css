@@ -14,15 +14,6 @@
   font-size: 2em;
   margin: 0 auto 0.5em auto;
   box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.7);
-  /* color hack for ios */
-  color: transparent;
-  text-shadow: 0 0 0 #fff;
-}
-.guess-result-icon-container.correct {
-  background: green;
-}
-.guess-result-icon-container.incorrect {
-  background: red;
 }
 .guess-result-text {
   font-size: 1.3em;
